@@ -1,0 +1,25 @@
+# Defines how to deploy pods in a Kubernetes cluster
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-kubernetes-app  # Name for this deployment
+spec:
+  selector:
+    matchLabels:
+      app: fastapi-kubernetes-app
+  replicas: 3  # How many instances of this pod should the deployment start
+  template:
+    metadata:
+      labels:
+        app: fastapi-kubernetes-app
+    spec:
+      containers:
+      - name: fastapi-kubernetes-app
+        image: gcr.io/learning-k8s-323213/fastapi-k8s  # The container image to use for these containers
+        imagePullPolicy: IfNotPresent  # pull the image if not present
+        resources:
+          limits:  # add resource limits on the new pods
+            memory: "128Mi"
+            cpu: "0.1"
+        ports:
+        - containerPort: 8000

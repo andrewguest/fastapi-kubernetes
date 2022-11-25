@@ -1,0 +1,12 @@
+# Defines how to expose and load balance the specified pods in a Kubernetes cluster
+apiVersion: v1
+kind: Service  # Defines a Kubernetes Service
+metadata:
+  name: fastapi-kubernetes-service  # The name of this service
+spec:
+  selector:  # 'selector' defines how to find the pods that this service applies to
+    app: fastapi-kubernetes-app  # this services applies to the pods with the 'app' of 'fastapi-kubernetes-app'
+  ports:
+  - port: 3000  # Kubernetes port to expose
+    targetPort: 8000  # Pod port to forward requests to
+  type: LoadBalancer
